@@ -7,6 +7,13 @@ body {
     padding: 20px;
 }
 
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 header {
     background-color: #f4f4f4;
     padding: 1rem;
@@ -15,6 +22,7 @@ header {
 
 header h1 {
     color: #333;
+    border-bottom: 2px solid #3498db;
 }
 
 nav ul {
@@ -43,12 +51,17 @@ table {
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #bdc3c7;
 }
 
 th, td {
     padding: 10px;
     text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
 }
 
 pre {
@@ -60,11 +73,21 @@ pre {
 
 code {
     font-family: 'Courier New', Courier, monospace;
+    color: #e74c3c;
 }
-
 footer {
     margin-top: 2rem;
     text-align: center;
     font-size: 0.9rem;
     color: #777;
 }
+
+.myDiv {
+    border: 1px outset red;
+    background-color: lightblue;    
+    text-align: center;
+    height: 400px;
+    width: 49.40%;
+    display:inline-block;
+    margin-bottom:20px;
+  }
