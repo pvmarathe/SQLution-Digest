@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer and Order Information Report - SQLution Digest</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #2980b9;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #e74c3c;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #bdc3c7;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>SQLution Digest</h1>
+        <nav>
+            <ul>
+                <li><a href="#home"><b>Home</b></a></li>
+                <li><a href="#about"><b>About</b></a></li>
+                <li><a href="#archive"><b>Archive</b></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Customer and Order Information Report</h1>
+
+        <h2>Problem Statement</h2>
+        <p>You're working for a large retail chain that wants to analyze customer information along with their order
+            details. You have two tables: Customer and Order.</p>
+
+        <h3>Table: Customer</h3>
+        <table>
+            <tr>
+                <th>Column Name</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td>CustomerId</td>
+                <td>int</td>
+            </tr>
+            <tr>
+                <td>FirstName</td>
+                <td>varchar</td>
+            </tr>
+            <tr>
+                <td>LastName</td>
+                <td>varchar</td>
+            </tr>
+        </table>
+        <p>CustomerId is the primary key column for this table.</p>
+
+        <h3>Table: Order</h3>
+        <table>
+            <tr>
+                <th>Column Name</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td>OrderId</td>
+                <td>int</td>
+            </tr>
+            <tr>
+                <td>CustomerId</td>
+                <td>int</td>
+            </tr>
+            <tr>
+                <td>ProductName</td>
+                <td>varchar</td>
+            </tr>
+            <tr>
+                <td>OrderDate</td>
+                <td>date</td>
+            </tr>
+        </table>
+        <p>OrderId is the primary key column for this table.</p>
+
+        <h2>Task</h2>
+        <p>Write a SQL query to generate a report that provides the following information for each customer in the
+            Customer table, regardless of whether they have placed an order:</p>
+        <p>FirstName, LastName, ProductName, OrderDate</p>
+        <p>The report should include all customers, even if they haven't placed any orders. For customers without
+            orders, the ProductName and OrderDate should be displayed as NULL.</p>
+
+        <h2>Solution</h2>
+        <pre><code>
+SELECT 
+    c.FirstName,
+    c.LastName,
+    o.ProductName,
+    o.OrderDate
+FROM 
+    Customer c
+LEFT JOIN 
+    Order o ON c.CustomerId = o.CustomerId
+ORDER BY 
+    c.LastName, c.FirstName, o.OrderDate;
+        </code></pre>
+
+        <h2>Explanation</h2>
+        <ol>
+            <li>We start with the Customer table (c) as our base table because we want to include all customers.</li>
+            <li>We use a LEFT JOIN to connect the Order table (o) to the Customer table. This ensures that all customers
+                are included, even if they don't have any orders.</li>
+            <li>The join condition c.CustomerId = o.CustomerId links the two tables based on the customer ID.</li>
+            <li>We select FirstName and LastName from the Customer table, and ProductName and OrderDate from the Order
+                table.</li>
+            <li>For customers without orders, the ProductName and OrderDate will automatically be NULL.</li>
+            <li>The ORDER BY clause sorts the results by LastName, then FirstName, and finally OrderDate for a clean,
+                organized report.</li>
+        </ol>
+
+        <p>This query demonstrates the use of LEFT JOIN, which is crucial in retail data analysis when you need to
+            include all customers in a report, regardless of their purchase history. It allows for a comprehensive view
+            of your customer base, including those who haven't made purchases, which can be valuable for marketing and
+            customer engagement strategies.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024 SQL Problem Solving Newsletter. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
