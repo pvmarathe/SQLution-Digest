@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Problem Solving Newsletter</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>SQLution Digest</h1>
@@ -20,18 +22,36 @@
 
     <main>
         <article>
-            <h2>Problem #1: Nth Highest Product Price</h2>
+            <h2>Nth Highest Product Price</h2>
             <section class="problem-statement">
                 <h3>Problem Statement</h3>
-                <p>A retail store wants to analyze its product pricing. Write a SQL query to get the nth highest price from the Products table.</p>
-                <h4>Table: Products</h4>
+                <p>A retail store wants to analyze its product pricing. Write a SQL query to get the nth highest price
+                    from the Products table.</p>
+                <h3>Table: Products</h3>
                 <table>
-                    <tr><th>Id</th><th>ProductName</th><th>Price</th></tr>
-                    <tr><td>1</td><td>T-shirt</td><td>19.99</td></tr>
-                    <tr><td>2</td><td>Jeans</td><td>49.99</td></tr>
-                    <tr><td>3</td><td>Sneakers</td><td>79.99</td></tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>ProductName</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>T-shirt</td>
+                        <td>19.99</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jeans</td>
+                        <td>49.99</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Sneakers</td>
+                        <td>79.99</td>
+                    </tr>
                 </table>
-                <p>Write a SQL function <code>getNthHighestPrice(N)</code> that returns the Nth highest price. Your function should return null if there aren't at least N distinct prices in the Products table.</p>
+                <p>Write a SQL function <code>getNthHighestPrice(N)</code> that returns the Nth highest price. Your
+                    function should return null if there aren't at least N distinct prices in the Products table.</p>
             </section>
 
             <section class="solution">
@@ -60,14 +80,15 @@ END
                     <li>Finds the price that has the rank we're looking for (Nth highest).</li>
                     <li>Returns that price, or NULL if it doesn't exist.</li>
                 </ol>
-                <p>This solution handles cases where there might be duplicate prices and correctly returns NULL if there is no Nth highest price.</p>
+                <p>This solution handles cases where there might be duplicate prices and correctly returns NULL if there
+                    is no Nth highest price.</p>
             </section>
         </article>
     </main>
 
     <footer>
-        <p>&copy; 2024 SQL Problem Solving Newsletter. All rights reserved.</p>
+        <p>&copy; 2024 SQLution Digest. All rights reserved.</p>
     </footer>
 </body>
-</html>
 
+</html>

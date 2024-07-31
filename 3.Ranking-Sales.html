@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Problem Solving Newsletter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>SQLution Digest</h1>
+        <nav>
+            <ul>
+                <li><a href="#home"><b>Home</b></a></li>
+                <li><a href="#about"><b>About</b></a></li>
+                <li><a href="#archive"><b>Archive</b></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>Ranking Products by Sales Performance</h2>
+            <section class="problem-statement">
+                <h3>Problem Statement</h3>
+                <p>You're a data analyst for a large retail chain. The company wants to rank its products based on their sales performance. The ranking should reflect ties, and there should be no gaps in the rankings.</p>
+                <h3>Table: ProductSales</h3>
+                <table>
+                    <tr>
+                        <th>Column Name</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr>
+                        <td>ProductId</td>
+                        <td>int</td>
+                    </tr>
+                    <tr>
+                        <td>TotalSales</td>
+                        <td>decimal(10,2)</td>
+                    </tr>
+                </table>
+                <p>ProductId is the primary key for this table. TotalSales represents the total dollar amount of sales for each product.</p>
+                <h4>Sample Data:</h4>
+                <table>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>TotalSales</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>3500.50</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>3650.75</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>4000.00</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>3850.25</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>4000.00</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>3650.75</td>
+                    </tr>
+                </table>
+                <p>Write a SQL query to rank products based on their total sales. If there is a tie between two products' sales, both should have the same ranking. After a tie, the next ranking number should be the next consecutive integer value. There should be no gaps between ranks.</p>
+            </section>
+
+            <section class="solution">
+                <h3>Solution</h3>
+                <pre><code>
+SELECT 
+    TotalSales,
+    DENSE_RANK() OVER (ORDER BY TotalSales DESC) as Rank
+FROM 
+    ProductSales
+ORDER BY 
+    TotalSales DESC;
+                </code></pre>
+            </section>
+
+            <section class="explanation">
+                <h3>Explanation</h3>
+                <p>This SQL query does the following:</p>
+                <ol>
+                    <li>Selects the TotalSales column from the ProductSales table.</li>
+                    <li>Uses the DENSE_RANK() window function to assign ranks to the sales figures.</li>
+                    <li>The OVER (ORDER BY TotalSales DESC) clause specifies that the ranking should be based on TotalSales in descending order.</li>
+                    <li>DENSE_RANK() ensures that tied values receive the same rank, and the next rank is the next consecutive integer.</li>
+                    <li>The final ORDER BY clause sorts the results by TotalSales in descending order, showing highest sales first.</li>
+                </ol>
+                <p>This solution effectively ranks the products by their sales performance, handling ties appropriately and ensuring there are no gaps in the rankings. It's a crucial technique in retail analytics for identifying top-performing products and analyzing sales distributions.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SQLution Digest. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

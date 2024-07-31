@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Problem Solving Newsletter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>SQLution Digest</h1>
+        <nav>
+            <ul>
+                <li><a href="#home"><b>Home</b></a></li>
+                <li><a href="#about"><b>About</b></a></li>
+                <li><a href="#archive"><b>Archive</b></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>Identifying Consistent High-Traffic Days</h2>
+            <section class="problem-statement">
+                <h3>Problem Statement</h3>
+                <p>You're a data analyst for a large retail chain. The company wants to identify periods of consistently
+                    high foot traffic in their stores to optimize staffing and inventory management.</p>
+                <h3>Table: DailyFootTraffic</h3>
+                <table>
+                    <tr>
+                        <th>Column Name</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>date</td>
+                    </tr>
+                    <tr>
+                        <td>Traffic</td>
+                        <td>int</td>
+                    </tr>
+                </table>
+                <p>Date is the primary key for this table. Traffic represents the number of customers who visited the
+                    store on that date.</p>
+                <h4>Sample Data:</h4>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Traffic</th>
+                    </tr>
+                    <tr>
+                        <td>2023-07-01</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-02</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-03</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-04</td>
+                        <td>800</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-05</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-06</td>
+                        <td>800</td>
+                    </tr>
+                    <tr>
+                        <td>2023-07-07</td>
+                        <td>800</td>
+                    </tr>
+                </table>
+                <p>Write a SQL query to find all traffic levels that appear at least three days consecutively. This will
+                    help identify periods of consistently high (or low) foot traffic.</p>
+            </section>
+
+            <section class="solution">
+                <h3>Solution</h3>
+                <pre><code>
+SELECT DISTINCT l1.Traffic AS ConsecutiveTraffic
+FROM 
+    DailyFootTraffic l1,
+    DailyFootTraffic l2,
+    DailyFootTraffic l3
+WHERE 
+    l1.Traffic = l2.Traffic 
+    AND l2.Traffic = l3.Traffic
+    AND DATEDIFF(l2.Date, l1.Date) = 1
+    AND DATEDIFF(l3.Date, l2.Date) = 1
+                </code></pre>
+            </section>
+
+            <section class="explanation">
+                <h3>Explanation</h3>
+                <p>This SQL query does the following:</p>
+                <ol>
+                    <li>It uses self-joins to compare each day's traffic with the traffic of the next two days.</li>
+                    <li>The WHERE clause ensures that:
+                        <ul>
+                            <li>The traffic levels are the same for all three days.</li>
+                            <li>The dates are consecutive (using DATEDIFF to check if the difference between dates is
+                                exactly 1 day).</li>
+                        </ul>
+                    </li>
+                    <li>DISTINCT is used to avoid duplicate results if there are more than three consecutive days with
+                        the same traffic.</li>
+                    <li>The result is aliased as ConsecutiveTraffic for clarity.</li>
+                </ol>
+                <p>This solution effectively identifies traffic levels that occur for at least three consecutive days.
+                    It's a valuable technique in retail analytics for recognizing consistent patterns in store traffic,
+                    which can inform staffing decisions, inventory management, and marketing strategies.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SQLution Digest. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
